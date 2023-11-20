@@ -1,0 +1,10 @@
+/* simple for now...*/
+body {
+    background-color: #f2f2f2;
+}
+button {
+    background-color: lightgrey;
+}
+textarea {
+    font-family: "Monospace", Console, serif;
+}

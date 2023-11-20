@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anahita</title>
+
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='stylesheets/style.css') }}" />
+    
+    <script>
+      function clearTextArea(id) {
+	  document.getElementById(id).value = "";
+      }
+
+      function copyToClipboard(areaId) {
+        /* Get the text from the textarea */
+        var copyText = document.getElementById(areaId);
+
+        /* Create a temporary input element to copy the text */
+        var tempInput = document.createElement("textarea");
+        tempInput.value = copyText.value;
+        document.body.appendChild(tempInput);
+
+        /* Select the text in the temporary input element */
+        tempInput.select();
+        tempInput.setSelectionRange(0, 99999); /* For mobile devices */
+
+        /* Copy the selected text to the clipboard */
+        document.execCommand("copy");
+
+        /* Remove the temporary input element */
+        document.body.removeChild(tempInput);
+
+        /* Optionally, provide some visual feedback (e.g., alert or tooltip) */
+        alert("Text copied to clipboard: " + copyText.value);
+      }      
+    </script>
+  </head>
+  <body>
+    <h1>Input {{ loaded_model }}</h1>
+    <form method="post">
+      <label for="input_text"></label>
+      <textarea placeholder="Your prompt goes here." name="input_text" id="input_text" rows="4" cols="72" spellcheck="true">{{ input_text }}</textarea>
+      <br>
+      <button type="submit">Submit</button>
+      <button onclick="clearTextArea('input_text')">Clear</button>
+    </form>
+    
+    <hr>
+    <h1>Output</h1>
+    <form method="post">
+      <label for="output_text"></label>
+      <textarea readonly="true" name="output_text" id="output_text" rows="25" cols="72">{{ output_text }}</textarea>
+      <br>
+      <button type="clipboard" onclick="copyToClipboard('output_text')">Clipboard</button>
+    </form>
+  </body>
+</html>
